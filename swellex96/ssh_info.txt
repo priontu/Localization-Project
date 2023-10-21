@@ -1,0 +1,3 @@
+coe-ece-imaple1.coe.drexel.edu
+
+ssh pc833@coe-ece-imaple1.coe.drexel.edu

@@ -1,0 +1,39 @@
+vla_data = 'data/J1312315.vla.21els.sio';
+tla_data = 'data/J1312315.tla.22els.sio';
+hla_north_data = 'data/J1312340.hla.north.sio';
+hla_south_data = 'data/J1312340.hla.south.sio';
+
+vla_channels = [1:21];
+tla_channels = [1:22];
+hla_north_channels = [1:27];
+hla_south_channels = [1:28];
+
+p1 = 1;
+npi = 0;
+
+vla = {vla_data, p1, npi, vla_channels};
+tla = {tla_data, p1, npi, tla_channels};
+hla_n = {hla_north_data, p1, npi, hla_north_channels};
+hla_s = {hla_south_data, p1, npi, hla_south_channels};
+% fname = hla_north_data;
+% channels = [1:21];
+
+% xdata = sioread(fname, p1, npi, channels);
+
+concern_dataset = vla;
+
+%xdata = sioread(concern_dataset{:});
+
+vla_raw = sioread(vla{:});
+%tla_raw = sioread(tla{:});
+%hla_n_raw = sioread(hla_n{:});
+%hla_s_raw = sioread(hla_s{:});
+
+% writetable(array2table(vla_raw), 'excel_export/vla_raw.xlsx');
+% writetable(array2table(tla_raw), 'excel_export/tla_raw.xlsx');
+% writetable(array2table(hla_n_raw), 'excel_export/hla_n_raw.xlsx');
+% writetable(array2table(hla_s_raw), 'excel_export/hla_s_raw.xlsx');
+
+%csvwrite('excel_export/vla_raw.xlsx', vla_raw);
+
+writematrix(array2tablevla_raw, 'excel_export/vla_raw.xlsx');
