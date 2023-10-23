@@ -21,7 +21,7 @@ plt.close("all")
     # print(vla_series.iloc[0:100, 0:10])
     # print(vla_series)
     
-from Source.Data import VLA, TLA, HLA_North, HLA_South
+from Source.System import VLA, TLA, HLA_North, HLA_South
 
 # VLA().plot()
 VLA().plot_rfft(channel = 1)
