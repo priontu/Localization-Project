@@ -3,6 +3,8 @@ function process_hla_north(p1, npi, selected_channel)
 % p1 is starting point.
 % npi is number of points to load.
 
+system_name = "HLA North";
+
 default_selected_channel = 1; % Default Channel being studied.
 default_p1 = 1;
 default_npi = 0;
@@ -36,26 +38,44 @@ names = generate_channel_names(num_channels);
 data_table = array2table(raw_data, "VariableNames", names);
 timeline = (0:(num_points - 1))./Fs;
 
-figure(5);
-plot(timeline, data_table{:, selected_channel});
-title(strcat('Time Domain Display, HLA North Channel: ', int2str(selected_channel)));
-xlabel("time/s");
-ylabel("Magnitude");
-hold on;
-grid on;
+generate_time_series_plot(system_name, selected_channel, data_table, timeline);
 
-Y = fft(data_table{:, selected_channel});
-freq_spread = (Fs/num_points)*(-(num_points/2):(num_points/2 - 1));
+[freq_spread, Y_shifted] = generate_fft_spectrum(selected_channel, Fs, data_table);
 
-figure(6);
-plot(freq_spread, abs(Y));
-xlabel("frequency/Hz");
-ylabel("Magnitude");
-title(strcat('Frequency Domain Display, HLA North Channel: ', int2str(selected_channel)));
-hold on;
-grid on;
+generate_fft_spectrum_plot(system_name, selected_channel, freq_spread, Y_shifted);
+
+generate_spectrogram(system_name, selected_channel, Fs, data_table);
+
+% figure(5);
+% plot(timeline, data_table{:, selected_channel});
+% title(strcat('Time Domain Display, HLA North Channel: ', int2str(selected_channel)));
+% xlabel("time/s");
+% ylabel("Magnitude");
+% hold on;
+% grid on;
+% 
+% Y_complex = fft(data_table{:, selected_channel});
+% Y_mag = abs(Y_complex);
+% Y_shifted = fftshift(Y_mag);
+% freq_spread = (Fs/num_points)*(-(num_points/2):(num_points/2 - 1));
+% 
+% figure(6);
+% plot(freq_spread, Y_shifted);
+% xlabel("frequency/Hz");
+% ylabel("Magnitude");
+% title(strcat('Frequency Domain Display, HLA North Channel: ', int2str(selected_channel)));
+% hold on;
+% grid on;
 
 
+% figure(11);
+% nsc = floor(num_points/Fs);
+% nov = floor(nsc/2);
+% nff = max(256,2^nextpow2(nsc));
+% 
+% spectrogram(data_table{:, sexlected_channel}, hamming(nsc), nov, nff, Fs);
+% title((strcat("Spectrogram, HLA North Channel: ", int2str(selected_channel))));
+% hold on;
 
 
 
