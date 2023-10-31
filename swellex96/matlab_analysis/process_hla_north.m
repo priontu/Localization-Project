@@ -1,4 +1,4 @@
-function process_hla_north(p1, npi, selected_channel)
+function process_hla_north(p1, npi, selected_channel, threshold)
 
 % p1 is starting point.
 % npi is number of points to load.
@@ -24,6 +24,9 @@ if ~exist('selected_channel', 'var')
     selected_channel = default_selected_channel;    % Default Channel being studied.
 end
 
+if ~exist('threshold', 'var')
+    threshold = -Inf;
+end
 
 data_path = '../data/J1312340.hla.north.sio';
 channels = 1:num_channels;
@@ -38,13 +41,15 @@ names = generate_channel_names(num_channels);
 data_table = array2table(raw_data, "VariableNames", names);
 timeline = (0:(num_points - 1))./Fs;
 
-generate_time_series_plot(system_name, selected_channel, data_table, timeline);
+selected_data = data_table{:, selected_channel};
 
-[freq_spread, Y_shifted] = generate_fft_spectrum(selected_channel, Fs, data_table);
+generate_time_series_plot(system_name, selected_channel, selected_data, timeline);
+
+[freq_spread, Y_shifted] = generate_fft_spectrum(selected_data, Fs);
 
 generate_fft_spectrum_plot(system_name, selected_channel, freq_spread, Y_shifted);
 
-generate_spectrogram(system_name, selected_channel, Fs, data_table);
+generate_spectrogram(system_name, selected_channel, selected_data, Fs, threshold);
 
 % figure(5);
 % plot(timeline, data_table{:, selected_channel});

@@ -1,4 +1,4 @@
-function process_vla_filtered(p1, npi, selected_channel)
+function process_vla_filtered(p1, npi, selected_channel, threshold)
 
 % p1 is starting point.
 % npi is number of points to load.
@@ -18,6 +18,10 @@ end
 
 if ~exist('selected_channel', 'var')
     selected_channel = default_selected_channel;
+end
+
+if ~exist('threshold', 'var')
+    threshold = -Inf;
 end
 
 Fs = 1500;  % sampling frequency
@@ -44,7 +48,7 @@ generate_time_series_plot(system_name, selected_channel, selected_data, timeline
 
 generate_fft_spectrum_plot(system_name, selected_channel, freq_spread, Y_shifted);
 
-generate_spectrogram(system_name, selected_channel, selected_data, Fs);
+generate_spectrogram(system_name, selected_channel, selected_data, Fs, threshold);
 
 % barlett_win = barlett(num_points);
 % Ndft = 4096

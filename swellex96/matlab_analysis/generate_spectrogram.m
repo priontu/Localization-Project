@@ -7,7 +7,7 @@ num_points = height(selected_data);
 dc_removed = selected_data - mean(selected_data);
 
 figure;
-nsc = floor(num_points/(Fs));
+nsc = floor(num_points/(1500));
 nov = floor(nsc/2);
 nff = max(256,2^nextpow2(nsc));
 
