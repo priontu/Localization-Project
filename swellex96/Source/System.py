@@ -5,14 +5,6 @@ from scipy.fft import fft, fftfreq, rfft, rfftfreq, fftshift
 
 from Source.Core import System_Core
 from Source.Common import common_params
-# class Store:
-#     def __init__(self) -> None:
-#         vla_location = "excel_export/raw_data.csv"
-#         tla_location = "excel_export/tla_raw.csv"
-#         hla_n_location = "excel_export/hla_n_raw.csv"
-#         hla_s_location = "excel_export/hla_s_raw.csv"
-
-
                
 class VLA:
     defaults = common_params()

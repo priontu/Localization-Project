@@ -2,7 +2,7 @@
 
 p1 = 1;
 npi = 0;
-selected_channel = 1;
+selected_channel = 5;
 threshold = -Inf;
 % process_vla(1, 0, 2);
 

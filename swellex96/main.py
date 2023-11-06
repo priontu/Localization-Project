@@ -24,4 +24,4 @@ plt.close("all")
 from Source.System import VLA, TLA, HLA_North, HLA_South
 
 # VLA().plot()
-HLA_South().generate_spectrogram(channel = 10)
+VLA().generate_spectrogram(channel = 10)

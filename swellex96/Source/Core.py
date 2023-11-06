@@ -29,7 +29,6 @@ class System_Core():
         time = pd.Series(data = (raw_data.index + 1)/self.sampling_rate , index=raw_data.index)
         time.name = "time"
         data_series = pd.concat([time, raw_data], axis = 1)
-        
         return data_series
         
     def plot_time_series(self, limit = defaults.default_point_limit, channel = defaults.default_plot_channel):
