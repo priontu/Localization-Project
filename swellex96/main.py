@@ -24,4 +24,4 @@ plt.close("all")
 from Source.System import VLA, TLA, HLA_North, HLA_South
 
 # VLA().plot()
-VLA().generate_spectrogram(channel = 10)
+VLA().plot_rfft_phase(channel = 10)

@@ -42,6 +42,15 @@ class VLA:
         
     def generate_spectrogram(self, channel = defaults.default_plot_channel):
         self.system.generate_spectrogram(channel = channel)
+
+    def generate_phase_spectrogram(self, channel = defaults.default_plot_channel):
+        self.system.generate_phase_spectrogram(channel = channel)
+    
+    def plot_fft_phase(self, channel = defaults.default_plot_channel):
+        self.system.plot_fft_phase(channel = channel)
+        
+    def plot_rfft_phase(self, channel = defaults.default_plot_channel):
+        self.system.plot_rfft_phase(channel = channel)
     
 class TLA:
     defaults = common_params()
@@ -80,6 +89,15 @@ class TLA:
     def generate_spectrogram(self, channel = defaults.default_plot_channel):
         self.system.generate_spectrogram(channel = channel)
 
+    def generate_phase_spectrogram(self, channel = defaults.default_plot_channel):
+        self.system.generate_phase_spectrogram(channel = channel)
+        
+    def plot_fft_phase(self, channel = defaults.default_plot_channel):
+        self.system.plot_fft_phase(channel = channel)
+        
+    def plot_rfft_phase(self, channel = defaults.default_plot_channel):
+        self.system.plot_rfft_phase(channel = channel)
+
 class HLA_North:
     defaults = common_params()    
 
@@ -116,6 +134,15 @@ class HLA_North:
 
     def generate_spectrogram(self, channel = defaults.default_plot_channel):
         self.system.generate_spectrogram(channel = channel)
+        
+    def generate_phase_spectrogram(self, channel = defaults.default_plot_channel):
+        self.system.generate_phase_spectrogram(channel = channel)
+        
+    def plot_fft_phase(self, channel = defaults.default_plot_channel):
+        self.system.plot_fft_phase(channel = channel)
+        
+    def plot_rfft_phase(self, channel = defaults.default_plot_channel):
+        self.system.plot_rfft_phase(channel = channel)
 
 class HLA_South:
     defaults = common_params()    
@@ -152,5 +179,14 @@ class HLA_South:
 
     def generate_spectrogram(self, channel = defaults.default_plot_channel):
         self.system.generate_spectrogram(channel = channel)
+        
+    def generate_phase_spectrogram(self, channel = defaults.default_plot_channel):
+        self.system.generate_phase_spectrogram(channel = channel)
+        
+    def plot_fft_phase(self, channel = defaults.default_plot_channel):
+        self.system.plot_fft_phase(channel = channel)
+        
+    def plot_rfft_phase(self, channel = defaults.default_plot_channel):
+        self.system.plot_rfft_phase(channel = channel)
 # if __name__ == "__main__":
 #     print(__file__.split("Data")[0].replace("\\", "/"))

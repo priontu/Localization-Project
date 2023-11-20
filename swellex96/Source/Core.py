@@ -1,3 +1,6 @@
+import matplotlib as mpl
+mpl.rcParams['agg.path.chunksize'] = 10000
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -78,7 +81,25 @@ class System_Core():
         plt.title(f"RFFT for {self.sys_name}, Channel {channel}")
         plt.show()
         
-    def generate_spectrogram(self, channel = defaults.default_plot_channel):
+    def plot_fft_phase(self, channel = defaults.default_plot_channel):
+        xf, yf = self.calculate_fft(channel = channel)
+        yf_mag = np.angle(yf)
+        # yf_shifted = fftshift(yf_mag)
+        plt.plot(xf, yf_mag)
+        plt.ylabel('Magnitude')
+        plt.xlabel('Frequency [Hz]')
+        plt.title(f"FFT Phase Spectrum for {self.sys_name}, Channel {channel}")
+        plt.show()
+
+    def plot_rfft_phase(self, channel = defaults.default_plot_channel):
+        xf, yf = self.calculate_rfft(channel = channel)
+        plt.plot(xf, np.angle(yf))
+        plt.ylabel('Magnitude')
+        plt.xlabel('Frequency [Hz]')
+        plt.title(f"RFFT Phase Spectrum for {self.sys_name}, Channel {channel}")
+        plt.show()
+
+    def generate_specrtrogram_data(self, channel = defaults.default_plot_channel):
         data_series = self.export_df()
         num_points = N = len(data_series.index)
         ds_key = "channel_" + str(channel)
@@ -89,7 +110,7 @@ class System_Core():
         nov = math.floor(nsc/2)
         nff = max(256, pow(2, np.ceil(np.log(nsc)/np.log(2)))) # Round to next highest power of 2.
         
-        fig1 = plt.figure()
+
         f, t, Sxx = spectrogram(
             x = selected_data, 
             fs = self.sampling_rate, 
@@ -97,11 +118,20 @@ class System_Core():
             noverlap = nov, 
             nperseg = nsc, nfft = nff, 
             mode = "complex"
-        )
+        )   
+        
+        return (f, t, Sxx)
+        
+    def generate_spectrogram(self, channel = defaults.default_plot_channel):
+
         # print("f: ", f.shape)
         # print("t: ", t.shape)
         # print("Sxx: ", Sxx.shape)
         # quit()
+        fig1 = plt.figure()
+        
+        f, t, Sxx = self.generate_specrtrogram_data(channel = channel)
+        
         spec = plt.pcolormesh(f, t, 10*np.log10(np.abs(Sxx.T)), cmap = "viridis")
         fig1.colorbar(spec).set_label('Intensity (dB)')
         plt.xlabel('Frequency [Hz]')
@@ -109,4 +139,13 @@ class System_Core():
         plt.title(f"Spectrogram for {self.sys_name}, Channel {channel}")
         plt.show()
         
+    def generate_phase_spectrogram(self, channel = defaults.default_plot_channel):
+        fig1 = plt.figure()
+        f, t, Sxx = self.generate_specrtrogram_data(channel = channel)
         
+        spec = plt.pcolormesh(f, t, np.angle(Sxx.T), cmap = "viridis")
+        fig1.colorbar(spec).set_label('Intensity (dB)')
+        plt.xlabel('Frequency [Hz]')
+        plt.ylabel('Time [sec]')
+        plt.title(f"Phase Spectrogram for {self.sys_name}, Channel {channel}")
+        plt.show()
